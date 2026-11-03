@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MyBlog{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg bg-warning">
+        <div class="container-fluid">
+
+            <!-- Brand -->
+            <a class="navbar-brand fs-4 fw-bold" href="{% url 'Home' %}">
+                <i class="bi bi-vector-pen"></i> <span>MyBlog</span>
+            </a>
+
+            <!-- Toggle button -->
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto fw-medium">
+
+                    <li class="nav-item ">
+                        <a class="nav-link active text-dark" href="{% url 'Home' %}">
+                            <i class="bi bi-house-door-fill"></i> Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="{% url 'Allnewpost' %}">
+                            <i class="bi bi-pencil-square"></i> All Posts
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="{% url 'Allcategories' %}">
+                            <i class="bi bi-folder-fill"></i> Categories
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="{% url 'Addpost' %}">
+                            <i class="bi bi-plus-lg"></i> Add Post
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="{% url 'Login' %}">
+                             <i class="bi bi-box-arrow-in-right"></i> Login
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="{% url 'Register' %}">
+                            <i class="bi bi-person-plus-fill"></i> Register
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="flex-grow-1">
+    {% block body %}
+    {% endblock %}
+    </main>
+    
+    <footer class="border bg-light text-center text-dark p-3 m-5 rounded rounded-3">
+        <div>Django Web Development Course © 2026</div>
+    </footer>
+</body>
+</html>

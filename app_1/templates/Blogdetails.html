@@ -1,0 +1,192 @@
+
+{% extends 'Base.html' %}
+
+{% block body %}
+
+<div class="container py-4">
+
+    <!-- Breadcrumb -->
+    <div class="mb-4">
+        <a href="{% url 'Home' %}" class="text-decoration-none">Home</a>
+        <span class="text-muted mx-2">/</span>
+        <a href="{% url 'Allnewpost' %}" class="text-decoration-none">All Posts</a>
+        <span class="text-muted mx-2">/</span>
+        <span class="text-muted">Blog Details</span>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- Blog Content -->
+        <div class="col-12 col-lg-8">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+
+                    <!-- Category -->
+                    <span class="badge bg-primary p-2 mb-3">
+                        {{ post.category.name }}
+                    </span>
+
+                    <!-- Title -->
+                    <h2 class="fw-bold mb-3">
+                        {{ post.title }}
+                    </h2>
+
+                    <!-- Author and Date -->
+                    <div class="d-flex flex-wrap gap-3 text-muted mb-4">
+
+                        <span>
+                            <i class="bi bi-person"></i>
+                            {{ post.author }}
+                        </span>
+
+                        <span>
+                            <i class="bi bi-calendar3"></i>
+                            {{ post.created_at|date:"d F Y" }}
+                        </span>
+
+                        <span>
+                            <i class="bi bi-clock"></i>
+                            {{ post.created_at|date:"h:i A" }}
+                        </span>
+
+                    </div>
+
+                    <hr>
+
+                    <!-- Post Content -->
+                    <div class="mt-4 mb-4">
+                        {{ post.content|linebreaks }}
+                    </div>
+
+                    <hr>
+
+                    <!-- Post Information -->
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+
+                        <div>
+                            <strong>Status:</strong>
+
+                            {% if post.status == 'Published' %}
+                                <span class="badge bg-success p-2">
+                                    Published
+                                </span>
+                            {% else %}
+                                <span class="badge bg-warning text-dark p-2">
+                                    Draft
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            <strong>Words:</strong>
+                            {{ post.content.split|length }}
+                        </div>
+
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="d-flex flex-wrap gap-2 mt-4">
+
+                        <a href="{% url 'Allnewpost' %}"
+                           class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i>
+                            Back to Posts
+                        </a>
+
+                        <a href="{% url 'Deletepost' post.id %}"
+                           class="btn btn-danger">
+                            <i class="bi bi-trash"></i>
+                            Delete Post
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-12 col-lg-4">
+
+            <!-- Categories -->
+            <div class="card shadow-sm border-0 mb-4">
+
+                <div class="card-header bg-primary text-white">
+                    <h5 class="fw-bold mb-0">
+                        <i class="bi bi-grid me-2"></i>
+                        Categories
+                    </h5>
+                </div>
+
+                <div class="list-group list-group-flush">
+
+                    {% for category in categories %}
+
+                        <a href="{% url 'Cetagory' category.id %}"
+                           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+
+                            {{ category.name }}
+
+                            <span class="badge bg-primary rounded-pill">
+                                {{ category.post_count }}
+                            </span>
+
+                        </a>
+
+                    {% empty %}
+
+                        <div class="list-group-item text-muted">
+                            No categories available.
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <!-- Post Information -->
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-dark text-white">
+                    <h5 class="fw-bold mb-0">
+                        <i class="bi bi-info-circle me-2"></i>
+                        Post Information
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    <p>
+                        <strong>Post ID:</strong>
+                        {{ post.id }}
+                    </p>
+
+                    <p>
+                        <strong>Author:</strong>
+                        {{ post.author }}
+                    </p>
+
+                    <p>
+                        <strong>Created:</strong>
+                        {{ post.created_at|date:"d M Y" }}
+                    </p>
+
+                    <p class="mb-0">
+                        <strong>Last Updated:</strong>
+                        {{ post.updated_at|date:"d M Y" }}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

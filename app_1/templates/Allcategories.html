@@ -1,0 +1,52 @@
+
+{% extends 'Base.html' %}
+{% load static %}
+{% block body %}
+<style>
+    .image {
+        height: 150px;
+        width: 150px;
+        object-fit: contain;
+    }
+</style>
+<div class="d-flex flex-row justify-content-between mt-3 p-3">
+    <h1 class="fw-bold fs-1 "><span class="bi bi-folder-fill px-4"></span>All Categories</h1>
+    <button class=" btn btn-primary"><span class="bi bi-plus text-danger px-1"></span>Add Category</button>
+</div>
+<div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-3 p-3">
+
+    {% for category in categories %}
+
+    <div class="col">
+        <div class="card text-center p-4 shadow h-100">
+
+            <div>
+                <h2 class="fw-bold">{{ category.name }}</h2>
+            </div>
+
+            <div class="mb-4">
+                <button class="btn btn-primary fw-bold">
+                    {{ category.post_count }} Posts
+                </button>
+            </div>
+
+            <a href="{% url 'Cetagory' category.id %}"
+                class="btn btn-outline-primary w-100">
+                View Posts
+            </a>
+
+        </div>
+    </div>
+
+    {% empty %}
+
+    <div class="col-12">
+        <div class="alert alert-info">
+            No categories available.
+        </div>
+    </div>
+
+    {% endfor %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,122 @@
+
+{% extends 'Base.html' %}
+
+{% block body %}
+
+<div class="container py-4">
+
+    <!-- Breadcrumb -->
+    <div class="mb-4">
+        <a href="{% url 'Home' %}" class="text-decoration-none">
+            Home
+        </a>
+        <span class="text-muted mx-2">/</span>
+        <a href="{% url 'Allcategories' %}" class="text-decoration-none">
+            Categories
+        </a>
+        <span class="text-muted mx-2">/</span>
+        <span class="text-muted">{{ category.name }}</span>
+    </div>
+
+    <!-- Category Heading -->
+    <div class="mb-4">
+        <h2 class="fw-bold">{{ category.name }}</h2>
+        <p class="text-muted">
+            Explore all posts in the {{ category.name }} category.
+        </p>
+    </div>
+
+    <!-- Blog Posts -->
+    <div class="row g-4">
+
+        {% for post in posts %}
+
+            <div class="col-12 col-md-6">
+
+                <div class="card h-100 shadow-sm border rounded-3">
+
+                    <div class="card-body p-4">
+
+                        <!-- Category -->
+                        <span class="badge bg-primary mb-3 p-2">
+                            {{ post.category.name }}
+                        </span>
+
+                        <!-- Title -->
+                        <h4 class="fw-bold mb-3">
+                            {{ post.title }}
+                        </h4>
+
+                        <!-- Author and Date -->
+                        <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+
+                            <span class="text-muted">
+                                <i class="bi bi-person"></i>
+                                {{ post.author }}
+                            </span>
+
+                            <span class="text-muted">|</span>
+
+                            <span class="text-muted">
+                                <i class="bi bi-calendar3"></i>
+                                {{ post.created_at|date:"d M Y" }}
+                            </span>
+
+                        </div>
+
+                        <!-- Status -->
+                        {% if post.status == 'Published' %}
+                            <span class="badge bg-success p-2 mb-3">
+                                Published
+                            </span>
+                        {% else %}
+                            <span class="badge bg-secondary p-2 mb-3">
+                                Draft
+                            </span>
+                        {% endif %}
+
+                        <!-- Content -->
+                        <p class="card-text mt-2">
+                            {{ post.content|truncatewords:25 }}
+                        </p>
+
+                        <!-- Read More -->
+                        <a href="{% url 'Blogdetails' post.id %}"
+                           class="btn btn-outline-primary mt-2">
+                            Read More
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        {% empty %}
+
+            <div class="col-12">
+                <div class="alert alert-info text-center p-4">
+                    <i class="bi bi-info-circle fs-4"></i>
+                    <p class="mb-0 mt-2">
+                        No posts available in this category yet.
+                    </p>
+                </div>
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+    <!-- Back Button -->
+    <div class="mt-4">
+        <a href="{% url 'Allcategories' %}"
+           class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i>
+            Back to Categories
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,153 @@
+
+{% extends 'Base.html' %}
+
+{% block body %}
+
+<div>
+
+    <!-- Breadcrumb -->
+    <div class="text-center mt-3">
+        <a href="{% url 'Home' %}">Home</a> /
+        <a href="{% url 'Allnewpost' %}">All Posts</a> /
+        <span>Add Post</span>
+    </div>
+
+    <!-- Add Post Form -->
+    <div class="row">
+
+        <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+
+            <div class="bg-primary text-white fw-bold mt-3 p-2 rounded-top">
+                <i class="bi bi-pencil-square m-2"></i>
+                <span>Create New Blog Post</span>
+            </div>
+
+            <form method="POST" class="border rounded-bottom shadow p-3">
+
+                {% csrf_token %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <!-- Title -->
+                <div class="mb-3">
+                    <label for="title" class="form-label fw-bold">
+                        Post Title<span class="text-danger ps-2">*</span>
+                    </label>
+
+                    <input type="text" class="form-control" id="title"
+                         name="title" value="{{ title|default:'' }}" required>
+                </div>
+
+                <!-- Slug -->
+                <div class="mb-3">
+                    <label for="slug" class="form-label fw-bold">
+                        Slug<span class="text-danger ps-2">*</span>
+                    </label>
+
+                   <input type="text" class="form-control" id="slug"
+                    name="slug" value="{{ slug|default:'' }}" required>
+                </div>
+
+                <!-- Category -->
+                <div class="mb-3">
+
+                    <label for="category" class="form-label fw-bold">
+                        Category
+                        <span class="text-danger ps-2">*</span>
+                    </label>
+
+                    <select class="form-select" id="category" name="category" required>
+
+                        <option value="">Select Category</option>
+
+                        {% for category in categories %}
+
+                            <option value="{{ category.id }}"
+                                {% if category.id|stringformat:"s" == category_id %}selected{% endif %}>
+
+                                {{ category.name }}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                <!-- Author -->
+                <div class="mb-3">
+                    <label for="author" class="form-label fw-bold">
+                        Author Name<span class="text-danger ps-2">*</span>
+                    </label>
+
+                    <input type="text" class="form-control" id="author"
+                        name="author" value="{{ author|default:'' }}" required>
+                </div>
+
+                <!-- Content -->
+                <div class="mb-3">
+                    <label for="content" class="form-label fw-bold">
+                        Content<span class="text-danger ps-2">*</span>
+                    </label>
+
+                    <textarea class="form-control" id="content" name="content"
+                    rows="5" required>{{ content|default:'' }}</textarea>
+                    </div>
+
+                <!-- Status -->
+                <div class="mb-3">
+                    <label for="status" class="form-label fw-bold">
+                        Status
+                    </label>
+
+                    <select class="form-select" id="status" name="status">
+                        <option value="Published" {% if status == 'Published' or not status %}selected{% endif %}>Published</option>
+                        <option value="Draft" {% if status == 'Draft' %}selected{% endif %}>Draft</option>
+                    </select>
+                </div>
+
+                <!-- Buttons -->
+                <div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-floppy me-2"></i>
+                        Save Post
+                    </button>
+
+                    <a href="{% url 'Allnewpost' %}"
+                       class="btn btn-secondary">
+                        X Cancel
+                    </a>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+    const titleInput = document.getElementById('title');
+    const slugInput = document.getElementById('slug');
+
+    titleInput.addEventListener('input', function () {
+
+        let slug = titleInput.value
+            .toLowerCase()
+            .trim()
+            .replace(/\s+/g, '-')
+            .replace(/[^a-z0-9-]/g, '')
+            .replace(/-+/g, '-');
+
+        slugInput.value = slug;
+
+    });
+</script>
+{% endblock %}

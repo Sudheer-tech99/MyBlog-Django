@@ -1,0 +1,127 @@
+
+{% extends 'Base.html' %}
+
+{% block body %}
+
+<!-- Hero Section -->
+<div class="bg-primary text-center text-white p-5">
+    <h1 class="fw-bold">Welcome to MyBlog</h1>
+    <p>Discover stories, Ideas, and Knowledge</p>
+    <a href="{% url 'Allnewpost' %}" class="btn btn-outline-light">
+        Explore All Posts
+    </a>
+</div>
+
+<!-- Latest Posts Heading -->
+<div class="px-4 mt-3">
+    <i class="bi bi-journal-text fs-3"></i>
+    <span class="px-2 fw-bold fs-3">Latest Posts</span>
+</div>
+
+<!-- Main Content Row -->
+<div class="row mx-0">
+
+    <!-- Left Column: Latest Posts -->
+    <div class="col-12 col-lg-8">
+
+        <div class="row row-cols-1 row-cols-md-2 p-4">
+
+            {% for post in posts %}
+
+            <div class="col mb-3">
+                <div class="card p-3 shadow-lg h-100">
+
+                    <div>
+                        <button class="btn btn-primary">
+                            {{ post.category.name }}
+                        </button>
+                    </div>
+
+                    <h4 class="fw-bold mt-2">
+                        {{ post.title }}
+                    </h4>
+
+                    <p>
+                        <i class="bi bi-pencil-square px-2"></i>
+                        {{ post.author }} |
+                        {{ post.created_at|date:"d M Y" }}
+                    </p>
+
+                    <p>
+                        {{ post.content|truncatewords:20 }}
+                    </p>
+
+                    <div>
+                        <button class="btn btn-outline-primary">
+                            Read More
+                            <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            {% empty %}
+
+            <div class="col">
+                <div class="alert alert-info">
+                    No blog posts available.
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+
+    <!-- Right Column: Sidebar -->
+    <div class="col-12 col-lg-4">
+
+        <!-- Categories Card -->
+        <div class="card mb-3 border-0">
+
+            <div class="card-header mx-2">
+                <i class="bi bi-folder-fill"></i>
+                <span class="fw-bold">Categories</span>
+            </div>
+
+            <div class="list-group list-unstyled p-2">
+
+                {% for category in categories %}
+
+                <div class="d-flex flex-row justify-content-between p-2 border border-2">
+
+                    <span>{{ category.name }}</span>
+
+                    <span class="badge rounded-pill bg-primary">
+                        {{ category.post_count }}
+                    </span>
+
+                </div>
+
+                {% empty %}
+
+                <p class="text-muted">
+                    No categories available.
+                </p>
+
+                {% endfor %}
+
+            </div>
+        </div>
+
+        <!-- Recent Posts Card -->
+        <div class="list-group list-unstyled p-2">
+    {% for post in recent_posts %}
+    <div class="border border-2 p-2">
+        <strong>{{ post.title }}</strong>
+        <br>
+        <small>{{ post.created_at|date:"d M Y" }}</small>
+    </div>
+    {% empty %}
+    <p class="text-muted">No recent posts available.</p>
+    {% endfor %}
+</div>
+</div>
+
+{% endblock %}
