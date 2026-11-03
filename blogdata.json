@@ -1,0 +1,86 @@
+[
+{
+  "model": "app_1.category",
+  "pk": 1,
+  "fields": {
+    "name": "Technology"
+  }
+},
+{
+  "model": "app_1.category",
+  "pk": 2,
+  "fields": {
+    "name": "Programming"
+  }
+},
+{
+  "model": "app_1.category",
+  "pk": 4,
+  "fields": {
+    "name": "Lifestyle"
+  }
+},
+{
+  "model": "app_1.category",
+  "pk": 5,
+  "fields": {
+    "name": "Science"
+  }
+},
+{
+  "model": "app_1.post",
+  "pk": 1,
+  "fields": {
+    "title": "Introduction to Python",
+    "slug": "Introduction-to-python",
+    "category": 1,
+    "author": "Sudheer",
+    "content": "Python is a beginner-friendly programming language.",
+    "status": "Published",
+    "created_at": "2026-11-03T10:35:26.918Z",
+    "updated_at": "2026-11-03T10:35:26.918Z"
+  }
+},
+{
+  "model": "app_1.post",
+  "pk": 3,
+  "fields": {
+    "title": "Introduction for AI",
+    "slug": "introduction-for-ai",
+    "category": 2,
+    "author": "Pavan",
+    "content": "AI is more Power now",
+    "status": "Published",
+    "created_at": "2026-11-03T12:33:08.143Z",
+    "updated_at": "2026-11-03T12:33:08.143Z"
+  }
+},
+{
+  "model": "app_1.post",
+  "pk": 4,
+  "fields": {
+    "title": "Happy",
+    "slug": "happy",
+    "category": 4,
+    "author": "Ravi",
+    "content": "Leave Your life the Best",
+    "status": "Draft",
+    "created_at": "2026-11-03T12:33:47.998Z",
+    "updated_at": "2026-11-03T12:33:47.998Z"
+  }
+},
+{
+  "model": "app_1.post",
+  "pk": 5,
+  "fields": {
+    "title": "Introduction for Space",
+    "slug": "introduction-for-space",
+    "category": 5,
+    "author": "Sathish",
+    "content": "Space having Stars",
+    "status": "Published",
+    "created_at": "2026-11-03T12:38:44.018Z",
+    "updated_at": "2026-11-03T12:38:44.018Z"
+  }
+}
+]
